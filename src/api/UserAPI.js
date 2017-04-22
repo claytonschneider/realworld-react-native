@@ -12,7 +12,7 @@ const UpdateUserParams = Joi.object().keys({
   email: Joi.string().optional(),
   password: Joi.email().optional(),
   iamge: Joi.string().uri().optional(),
-  bio: Joi.string().optional()
+  bio: Joi.string().optional(),
 });
 export function updateUser(params) {
   Joi.assert(params, UpdateUserParams.required());

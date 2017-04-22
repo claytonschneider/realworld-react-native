@@ -11,13 +11,13 @@ export default function configureStore(initialState = {}) {
   const logger = createLogger({
     predicate: () => isDebuggingInChrome,
     collapsed: true,
-    duration: true
+    duration: true,
   });
 
   const store = createStore(
     rootReducer,
     initialState,
-    applyMiddleware(thunk, logger)
+    applyMiddleware(thunk, logger),
   );
 
   if (module.hot) {

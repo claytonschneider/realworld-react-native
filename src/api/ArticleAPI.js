@@ -6,7 +6,7 @@ const baseRoute = '/api/articles';
 
 const GetArticlesQueryParams = Joi.object().keys({
   limit: Joi.number().optional(),
-  offset: Joi.number().optional()
+  offset: Joi.number().optional(),
 });
 export function getFeedArticles(params = {}) {
   Joi.assert(params, GetArticlesQueryParams.required());
@@ -16,7 +16,7 @@ export function getFeedArticles(params = {}) {
 const GetRecentArticlesParams = GetArticlesQueryParams.keys({
   tag: Joi.string().optional(),
   author: Joi.string().optional(),
-  favorited: Joi.string().optional()
+  favorited: Joi.string().optional(),
 });
 export function getRecentArticles(params = {}) {
   Joi.assert(params, GetRecentArticlesParams.required());
@@ -32,7 +32,7 @@ const CreateArticleParams = Joi.object().keys({
   title: Joi.string().required(),
   description: Joi.string().required(),
   body: Joi.string().required(),
-  tagList: Joi.array().items(Joi.string()).required()
+  tagList: Joi.array().items(Joi.string()).required(),
 });
 export function create(params) {
   Joi.assert(params, CreateArticleParams.required());
@@ -42,7 +42,7 @@ export function create(params) {
 const UpdateArticleParams = Joi.object().keys({
   title: Joi.string().required(),
   description: Joi.string().required(),
-  body: Joi.string().required()
+  body: Joi.string().required(),
 });
 export function update(params) {
   Joi.assert(params, UpdateArticleParams.required());
@@ -50,7 +50,7 @@ export function update(params) {
 }
 
 const AddCommentParams = Joi.object().keys({
-  body: Joi.string().required()
+  body: Joi.string().required(),
 });
 export function addComment(slug, params) {
   Joi.assert(slug, Joi.string().required());

@@ -9,5 +9,5 @@ export {
   TagsAPI,
   ProfileAPI,
   AuthAPI,
-  ArticleAPI
+  ArticleAPI,
 };

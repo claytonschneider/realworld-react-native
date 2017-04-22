@@ -1,6 +1,6 @@
 import {
   QUERY_ARTICLES_SUCCESS,
-  QUERY_ARTICLES_ERROR
+  QUERY_ARTICLES_ERROR,
 } from '../actions/actionTypes';
 const initialState = [];
 

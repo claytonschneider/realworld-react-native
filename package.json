@@ -4,25 +4,32 @@
 	"private": true,
 	"scripts": {
 		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
+		"lint": "eslint src/**/*.js",
+		"fix-lint": "eslint src/**/*.js --fix",
+		"test": "npm run lint && jest"
 	},
 	"dependencies": {
-		"autobind-decorator": "^1.4.0",
-		"axios": "^0.16.1",
-		"joi": "^10.4.1",
-		"lodash": "^4.17.4",
+		"autobind-decorator": "1.4.0",
+		"axios": "0.16.1",
+		"joi": "10.4.1",
+		"lodash": "4.17.4",
 		"react": "16.0.0-alpha.6",
 		"react-native": "0.43.4",
-		"react-native-navigation": "^1.1.12",
-		"react-redux": "^5.0.4",
-		"redux": "^3.6.0",
-		"redux-actions": "^2.0.2",
-		"redux-logger": "^3.0.1",
-		"redux-thunk": "^2.2.0"
+		"react-native-navigation": "1.1.12",
+		"react-redux": "5.0.4",
+		"redux": "3.6.0",
+		"redux-actions": "2.0.2",
+		"redux-logger": "3.0.1",
+		"redux-thunk": "2.2.0"
 	},
 	"devDependencies": {
 		"babel-jest": "19.0.0",
 		"babel-preset-react-native": "1.9.1",
+		"eslint": "3.15.0",
+		"eslint-config-airbnb": "13.0.0",
+		"eslint-plugin-import": "2.2.0",
+		"eslint-plugin-jsx-a11y": "2.2.3",
+		"eslint-plugin-react": "6.9.0",
 		"jest": "19.0.2",
 		"react-test-renderer": "16.0.0-alpha.6"
 	},

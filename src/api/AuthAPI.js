@@ -5,7 +5,7 @@ const baseRoute = '/api/users';
 
 const LoginParams = Joi.object().keys({
   email: Joi.string().required(),
-  password: Joi.email().required()
+  password: Joi.email().required(),
 });
 export function login(params) {
   Joi.assert(params, LoginParams.required());
@@ -15,7 +15,7 @@ export function login(params) {
 const CreateUserParams = Joi.object().keys({
   username: Joi.string().required(),
   email: Joi.string().required(),
-  password: Joi.email().required()
+  password: Joi.email().required(),
 });
 export function createUser(params) {
   Joi.assert(params, CreateUserParams.required());
