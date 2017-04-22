@@ -3,24 +3,17 @@ import baseRequest from './baseRequest';
 
 const baseRoute = '/api/profiles';
 
-const GetCurrentUserParams = Joi.object().keys({
-  username: Joi.string().required(),
-  email: Joi.string().required(),
-  password: Joi.email().required()
-});
-export function getCurrentUser(params) {
-  Joi.assert(params, GetCurrentUserParams.required());
-  return baseRequest.get(`${baseRoute}`, params);
+export function getProfile(username) {
+  Joi.assert(username, Joi.string().required());
+  return baseRequest.get(`${baseRoute}/${encodeURIComponent(username)}`);
 }
 
-const UpdateUserParams = Joi.object().keys({
-  username: Joi.string().required(),
-  email: Joi.string().required(),
-  password: Joi.email().required(),
-  iamge: Joi.string().uri().required(),
-  bio: Joi.string().required()
-});
-export function updateUser(params) {
-  Joi.assert(params, UpdateUserParams.required());
-  return baseRequest.put(`${baseRoute}`, params);
+export function followUser(username) {
+  Joi.assert(username, Joi.string().required());
+  return baseRequest.post(`${baseRoute}/${encodeURIComponent(username)}/follow`);
+}
+
+export function unfollowUser(username) {
+  Joi.assert(username, Joi.string().required());
+  return baseRequest.delete(`${baseRoute}/${encodeURIComponent(username)}/follow`);
 }
