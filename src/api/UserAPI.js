@@ -3,22 +3,16 @@ import baseRequest from './baseRequest';
 
 const baseRoute = '/api/user';
 
-const GetCurrentUserParams = Joi.object().keys({
-  username: Joi.string().required(),
-  email: Joi.string().required(),
-  password: Joi.email().required()
-});
-export function getCurrentUser(params) {
-  Joi.assert(params, GetCurrentUserParams.required());
+export function getCurrentUser() {
   return baseRequest.get(`${baseRoute}`, params);
 }
 
 const UpdateUserParams = Joi.object().keys({
-  username: Joi.string().required(),
-  email: Joi.string().required(),
-  password: Joi.email().required(),
-  iamge: Joi.string().uri().required(),
-  bio: Joi.string().required()
+  username: Joi.string().optional(),
+  email: Joi.string().optional(),
+  password: Joi.email().optional(),
+  iamge: Joi.string().uri().optional(),
+  bio: Joi.string().optional()
 });
 export function updateUser(params) {
   Joi.assert(params, UpdateUserParams.required());
