@@ -1,7 +1,7 @@
 import {
   QUERY_ARTICLES_SUCCESS,
-  QUERY_ARTICLES_ERROR,
 } from '../actions/actionTypes';
+
 const initialState = [];
 
 export default function articleReducer(state = initialState, action) {

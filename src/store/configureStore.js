@@ -22,6 +22,7 @@ export default function configureStore(initialState = {}) {
 
   if (module.hot) {
     module.hot.accept(() => {
+      // eslint-disable-next-line
       const nextRootReducer = require('../reducers/index').default;
       store.replaceReducer(nextRootReducer);
     });

@@ -4,7 +4,7 @@ import baseRequest from './baseRequest';
 const baseRoute = '/api/user';
 
 export function getCurrentUser() {
-  return baseRequest.get(`${baseRoute}`, params);
+  return baseRequest.get(`${baseRoute}`);
 }
 
 const UpdateUserParams = Joi.object().keys({

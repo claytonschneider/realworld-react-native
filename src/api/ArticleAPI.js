@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import Joi from 'joi';
 import baseRequest from './baseRequest';
 
