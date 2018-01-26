@@ -16,3 +16,7 @@
 .DS_Store
 Thumbs.db
 ios/build
+android/.gradle/
+android/app/build/
+android/build/
+yarn.lock
