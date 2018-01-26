@@ -11,13 +11,14 @@ import {
     Text,
     View
 } from 'react-native';
+import { API_URL } from './config/config'
 
 export default class realworld extends Component {
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.welcome}>
-                    Welcome to React Native!
+                    Welcome to React Native! this is your api : { API_URL }
                 </Text>
                 <Text style={styles.instructions}>
                     To get started, edit index.android.js

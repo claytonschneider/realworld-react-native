@@ -20,3 +20,4 @@ android/.gradle/
 android/app/build/
 android/build/
 yarn.lock
+android/app/src/main/assets/
