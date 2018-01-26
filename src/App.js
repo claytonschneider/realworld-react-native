@@ -1,54 +1,52 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from 'react';
-import {
-    AppRegistry,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
-import { API_URL } from './config/config'
+import { AppRegistry } from 'react-native';
+import { StackNavigator } from 'react-navigation';
+import Login from './container/Login';
+import Register from './container/Register';
+import Home from './container/Home';
+import Setting from './container/Setting';
+import Profile from './container/Profile';
+import StarterScreen from './container/StarterScreen';
 
-export default class realworld extends Component {
+const Navigator = new StackNavigator({
+    StarterScreen: {
+        screen: StarterScreen,
+        navigationOptions: { header: null },
+    },
+    Home: {
+        screen: Home,
+        navigationOptions: { header: null },
+    },
+    Login: {
+        screen: Login,
+        navigationOptions: { header: null },
+    },
+    Register: {
+        screen: Register,
+        navigationOptions: { header: null },
+    },
+    Profile: {
+        screen: Profile,
+        navigationOptions: { header: null },
+    },
+    Setting: {
+        screen: Setting,
+        navigationOptions: { header: null },
+    },
+}, {
+    initialRouteName: 'StarterScreen',
+});
+
+const WrappedStack = ({key} ) => {
+    return <Navigator key={key} onNavigationStateChange={null}/>;
+};
+
+export default class App extends Component {
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.welcome}>
-                    Welcome to React Native! this is your api : { API_URL }
-                </Text>
-                <Text style={styles.instructions}>
-                    To get started, edit index.android.js
-                </Text>
-                <Text style={styles.instructions}>
-                    Double tap R on your keyboard to reload,{'\n'}
-                    Shake or press menu button for dev menu
-                </Text>
-            </View>
+            <WrappedStack/>
         );
     }
 }
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
-    },
-});
-
-AppRegistry.registerComponent('realworld', () => realworld);
+AppRegistry.registerComponent('realworld', () => App);
