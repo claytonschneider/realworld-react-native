@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import { StackNavigator } from 'react-navigation';
+import { StyleProvider, Root } from 'native-base';
 import Login from './container/Login';
 import Register from './container/Register';
 import Home from './container/Home';
@@ -38,7 +39,11 @@ const Navigator = new StackNavigator({
 });
 
 const WrappedStack = ({key} ) => {
-    return <Navigator key={key} onNavigationStateChange={null}/>;
+    return (
+        <Root>
+            <Navigator key={key} onNavigationStateChange={null}/>
+        </Root>
+    );
 };
 
 export default class App extends Component {
