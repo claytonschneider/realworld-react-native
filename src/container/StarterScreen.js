@@ -5,15 +5,24 @@ import {
     Text,
     View
 } from 'react-native';
+import {
+    Container,
+} from 'native-base';
+import AppHeader from '../component/AppHeader';
+
 
 export default class StarterScreen extends Component {
     render() {
+        const { goBack } = this.props.navigation;
         return (
-            <View style={styles.container}>
-                <Text style={styles.text}>
-                    Starter screen
-                </Text>
-            </View>
+            <Container>
+                <AppHeader title='Starter screen' goBack={goBack} />
+                <View style={styles.container}>
+                    <Text style={styles.text}>
+                        Starter screen
+                    </Text>
+                </View>
+            </Container>
         );
     }
 }
