@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
+import {FavouriteArticle, UnFavouriteArticle} from '../../../api';
+import {StoreContext} from '../../../context';
 
 export default function ArticlePreview({
+  slug,
   title,
   body,
   createdAt,
@@ -14,6 +17,7 @@ export default function ArticlePreview({
 }) {
   const [liked, setLiked] = useState(favorited);
   const [likes, setLikes] = useState(favoritesCount);
+  const {token} = useContext(StoreContext);
 
   return (
     <View style={styles.container}>
@@ -38,6 +42,7 @@ export default function ArticlePreview({
             onPress={() => {
               setLiked(false);
               setLikes(n => n - 1);
+              UnFavouriteArticle(token, slug);
             }}>
             {likes}
           </Text>
@@ -47,6 +52,7 @@ export default function ArticlePreview({
             onPress={() => {
               setLiked(true);
               setLikes(n => n + 1);
+              FavouriteArticle(token, slug).then(console.log)
             }}>
             {likes}
           </Text>

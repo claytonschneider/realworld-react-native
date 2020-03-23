@@ -24,6 +24,36 @@ export function getPersonalFeed(token) {
   });
 }
 
+export function FavouriteArticle(token, slug) {
+  return new Promise((resolve, reject) => {
+    fetch(apiUrl + 'articles/' + slug + '/favorite', {
+      method: 'POST',
+      headers: {
+        Authorization: 'Token ' + token,
+      },
+    })
+      .then(res => res.json())
+      .then(json => json.article)
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
+export function UnFavouriteArticle(token, slug) {
+  return new Promise((resolve, reject) => {
+    fetch(apiUrl + 'articles/' + slug + '/favorite', {
+      method: 'DELETE',
+      headers: {
+        Authorization: 'Token ' + token,
+      },
+    })
+      .then(res => res.json())
+      .then(json => json.article)
+      .then(resolve)
+      .catch(reject);
+  });
+}
+
 export function signin(email, password) {
   return new Promise((resolve, reject) => {
     fetch(apiUrl + 'users/login', {

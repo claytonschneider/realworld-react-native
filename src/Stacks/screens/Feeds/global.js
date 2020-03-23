@@ -19,6 +19,7 @@ export default function GlobalFeedScreen({navigation}) {
         renderItem={({item}) => (
           <ArticlePreview
             id={item.slug}
+            slug={item.slug}
             title={item.title}
             author={item.author}
             body={item.body}
