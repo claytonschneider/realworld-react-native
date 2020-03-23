@@ -1,31 +1,34 @@
 const apiUrl = 'http://conduit.productionready.io/api/';
 
-export function getGlobalFeed() {
-  return new Promise((resolve, reject) => {
-    fetch(apiUrl + 'articles')
-      .then(res => res.json())
-      .then(json => {
-        if (json.articles) {
-          resolve(json.articles);
-        } else {
-          reject(json);
-        }
-      })
-      .catch(reject);
-  });
+export function getMe(token) {
+  return Get('user', 'user', token);
 }
 
 export function getPersonalFeed(token) {
+  return Get('articles/feed', 'articles', token);
+}
+
+export function getGlobalFeed() {
+  return Get('articles', 'articles');
+}
+
+function Get(endPoint, key, token) {
   return new Promise((resolve, reject) => {
-    fetch(apiUrl + 'articles/feed', {
-      headers: {
-        Authorization: 'Token ' + token,
-      },
-    })
+    let options = {};
+
+    if (token) {
+      options = {
+        headers: {
+          Authorization: 'Token ' + token,
+        },
+      };
+    }
+
+    fetch(apiUrl + endPoint, options)
       .then(res => res.json())
       .then(json => {
-        if (json.articles) {
-          resolve(json.articles);
+        if (json[key]) {
+          resolve(json[key]);
         } else {
           reject(json);
         }
