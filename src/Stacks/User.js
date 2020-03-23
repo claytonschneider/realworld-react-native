@@ -1,8 +1,8 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import User from './User/index';
-import Settings from './User/Settings';
+import User from './screens/User/index';
+import Settings from './screens/User/Settings';
 
 const UserStack = createStackNavigator();
 
