@@ -8,7 +8,7 @@ import YourFeedStack from './Stacks/YourFeed';
 import GlobalFeedStack from './Stacks/GlobalFeed';
 import NewArticleStack from './Stacks/NewArticle';
 import UserStack from './Stacks/User';
-import LoginStack from './Stacks/Login';
+import AuthStack from './Stacks/Auth';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +42,7 @@ export default function Navigator() {
         {token ? (
           <Tab.Screen name={'User'} component={UserStack} />
         ) : (
-          <Tab.Screen name={'Login'} component={LoginStack} />
+          <Tab.Screen name={'Sign In'} component={AuthStack} />
         )}
       </Tab.Navigator>
     </NavigationContainer>
