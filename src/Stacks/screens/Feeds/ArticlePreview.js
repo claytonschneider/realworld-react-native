@@ -52,7 +52,7 @@ export default function ArticlePreview({
             onPress={() => {
               setLiked(true);
               setLikes(n => n + 1);
-              FavouriteArticle(token, slug).then(console.log)
+              FavouriteArticle(token, slug);
             }}>
             {likes}
           </Text>

@@ -45,7 +45,7 @@ export default function SignIn({navigation}) {
       <Text style={styles.subtitle} onPress={() => setoldUser(s => !s)}>
         {oldUser ? 'Need an Account?' : 'Have an Account?'}
       </Text>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+      {error ? <Text style={styles.error}>{JSON.stringify(error)}</Text> : null}
       <TextInput
         style={styles.input}
         placeholder="Email"

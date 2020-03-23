@@ -1,18 +1,64 @@
-import React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useState, useContext} from 'react';
+import {StyleSheet, TextInput, ScrollView, Button} from 'react-native';
+import {StoreContext} from '../../../context';
+import {CreateArticle} from '../../../api';
 
 export default function NewArticleScreen({navigation}) {
+  const {token} = useContext(StoreContext);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [article, setArticle] = useState('');
+  const [tags, setTags] = useState('');
+
+  function onPress() {
+    if (title && description && article) {
+      CreateArticle(token, title, description, article, tags.split(' '))
+        .then(console.log)
+        .catch(console.warn);
+    }
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>New Article</Text>
-    </View>
+    <ScrollView style={styles.container}>
+      <TextInput
+        style={styles.input}
+        placeholder="Article Title"
+        value={title}
+        onChangeText={setTitle}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="What's this article about?"
+        value={description}
+        onChangeText={setDescription}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Write your article"
+        value={article}
+        onChangeText={setArticle}
+        multiline
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Enter tags"
+        value={tags}
+        onChangeText={setTags}
+      />
+      <Button title="Publish Article" onPress={onPress} />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 3,
-    alignItems: 'center',
+    padding: 5,
+  },
+  input: {
+    borderWidth: 1,
+    padding: 5,
+    margin: 5,
+    borderRadius: 5,
   },
 });
