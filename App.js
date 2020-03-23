@@ -1,2 +1,2 @@
-import Navigator from './src/Navigation';
-export default Navigator;
+import App from './src/App';
+export default App;
