@@ -3,6 +3,7 @@ import {StyleSheet, TextInput, ScrollView} from 'react-native';
 import {StoreContext} from '../../../context';
 import {CreateArticle} from '../../../api';
 import {StyledButton} from '../../../components/StyledButton';
+import {StyledLoading} from '../../../components/StyledLoading';
 
 export default function NewArticleScreen({navigation}) {
   const {token} = useContext(StoreContext);
@@ -10,17 +11,26 @@ export default function NewArticleScreen({navigation}) {
   const [description, setDescription] = useState('');
   const [article, setArticle] = useState('');
   const [tags, setTags] = useState('');
+  const [loading, setLoading] = useState(false);
 
   function onPress() {
     if (title && description && article) {
+      setLoading(true);
       CreateArticle(token, title, description, article, tags.split(' '))
-        .then(console.log)
-        .catch(console.warn);
+        .then(newArticle => {
+          navigation.navigate('Article', newArticle);
+        })
+        .catch(console.warn)
+        .finally(() => setLoading(false));
       setTitle('');
       setDescription('');
       setArticle('');
       setTags('');
     }
+  }
+
+  if (loading) {
+    return <StyledLoading text="Publishing..." />;
   }
 
   return (

@@ -3,8 +3,8 @@ import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {Header} from './Header';
 
-export default function ArticleScreen({navigation}) {
-  const props = useRoute().params.props;
+export default function ArticleScreen() {
+  const props = useRoute().params;
   const {description, body} = props;
 
   return (

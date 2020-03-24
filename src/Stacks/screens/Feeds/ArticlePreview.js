@@ -12,7 +12,7 @@ export default function ArticlePreview(props) {
       <TouchableOpacity
         onPress={() =>
           navigation.navigate('Article', {
-            props,
+            ...props,
           })
         }>
         <Text style={styles.title}>{props.title}</Text>

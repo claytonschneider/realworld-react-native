@@ -13,7 +13,7 @@ export default function() {
       <YourFeedStack.Screen
         name={'Article'}
         component={Article}
-        options={({route}) => ({title: route.params.props.title})}
+        options={({route}) => ({title: route.params.title})}
       />
     </YourFeedStack.Navigator>
   );
