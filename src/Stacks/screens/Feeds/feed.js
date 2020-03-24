@@ -35,7 +35,7 @@ export default function Feed({getData}) {
     <View style={styles.container}>
       <FlatList
         data={articles}
-        keyExtractor={item => item.slug}
+        keyExtractor={(item, i) => item.slug + i}
         onEndReached={() => setOffset(n => n + 20)}
         onRefresh={() => {
           setOffset(0);

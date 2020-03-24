@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 export function Header(props) {
   const [liked, setLiked] = useState(props.favorited);
   const [likes, setLikes] = useState(props.favoritesCount);
+  const [image, setImage] = useState(props.author.image);
   const {user} = useContext(StoreContext);
   const navigation = useNavigation();
 
@@ -20,9 +21,14 @@ export function Header(props) {
         <Image
           style={styles.image}
           source={{
-            uri: props.author.image
-              ? props.author.image
+            uri: image
+              ? image
               : 'https://static.productionready.io/images/smiley-cyrus.jpg',
+          }}
+          onError={() => {
+            setImage(
+              'https://static.productionready.io/images/smiley-cyrus.jpg',
+            );
           }}
         />
         <View style={styles.info}>
