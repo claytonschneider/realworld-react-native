@@ -22,7 +22,7 @@ export function User({loading, userInfo}) {
 
       <Text style={styles.username}>{userInfo.username}</Text>
       <Text style={styles.bio}>{userInfo.bio}</Text>
-      <Articles />
+      <Articles username={userInfo.username} />
     </View>
   );
 }
