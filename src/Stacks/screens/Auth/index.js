@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {signin, signup} from '../../../api';
 import {StoreContext} from '../../../context';

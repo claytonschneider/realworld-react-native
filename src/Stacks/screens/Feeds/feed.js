@@ -12,7 +12,7 @@ export default function Feed({getData}) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (refresh) {
+    if (refresh || offset) {
       if (offset) {
         getData({offset}, token).then(data =>
           setArticles(state => state.concat(data)),
