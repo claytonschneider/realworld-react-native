@@ -26,7 +26,9 @@ export default function ArticlePreview({
           <Image
             style={styles.image}
             source={{
-              uri: author.image,
+              uri: author.image
+                ? author.image
+                : 'https://static.productionready.io/images/smiley-cyrus.jpg',
             }}
           />
           <View style={styles.info}>
