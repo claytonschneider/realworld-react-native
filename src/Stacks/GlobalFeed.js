@@ -10,7 +10,11 @@ export default function() {
   return (
     <GlobalFeedStack.Navigator initialRouteName={'Global Feed'}>
       <GlobalFeedStack.Screen name={'Global Feed'} component={GlobalFeed} />
-      <GlobalFeedStack.Screen name={'Article'} component={Article} />
+      <GlobalFeedStack.Screen
+        name={'Article'}
+        component={Article}
+        options={({route}) => ({title: route.params.props.title})}
+      />
     </GlobalFeedStack.Navigator>
   );
 }

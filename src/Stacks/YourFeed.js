@@ -10,7 +10,11 @@ export default function() {
   return (
     <YourFeedStack.Navigator initialRouteName={'Your Feed'}>
       <YourFeedStack.Screen name={'Your Feed'} component={YourFeedScreen} />
-      <YourFeedStack.Screen name={'Article'} component={Article} />
+      <YourFeedStack.Screen
+        name={'Article'}
+        component={Article}
+        options={({route}) => ({title: route.params.props.title})}
+      />
     </YourFeedStack.Navigator>
   );
 }

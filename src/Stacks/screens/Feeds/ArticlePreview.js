@@ -1,76 +1,26 @@
-import React, {useState, useContext} from 'react';
-import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
-import {FavouriteArticle, UnFavouriteArticle} from '../../../api';
-import {StoreContext} from '../../../context';
+import React from 'react';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {Header} from './Header';
 
-export default function ArticlePreview({
-  slug,
-  title,
-  body,
-  createdAt,
-  updatedAt,
-  tagList,
-  description,
-  author,
-  favorited,
-  favoritesCount,
-}) {
-  const [liked, setLiked] = useState(favorited);
-  const [likes, setLikes] = useState(favoritesCount);
-  const {token} = useContext(StoreContext);
+export default function ArticlePreview(props) {
+  const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.left}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: author.image
-                ? author.image
-                : 'https://static.productionready.io/images/smiley-cyrus.jpg',
-            }}
-          />
-          <View style={styles.info}>
-            <Text style={styles.username}>{author.username}</Text>
-            <Text style={styles.date}>
-              {new Date(createdAt).toDateString()}
-            </Text>
-          </View>
-        </View>
-        {liked ? (
-          <Text
-            style={[styles.likes, styles.liked]}
-            onPress={() => {
-              if (token) {
-                setLiked(false);
-                setLikes(n => n - 1);
-                UnFavouriteArticle(token, slug);
-              }
-            }}>
-            {likes}
-          </Text>
-        ) : (
-          <Text
-            style={[styles.likes, styles.notLiked]}
-            onPress={() => {
-              if (token) {
-                setLiked(true);
-                setLikes(n => n + 1);
-                FavouriteArticle(token, slug);
-              }
-            }}>
-            {likes}
-          </Text>
-        )}
-      </View>
-      <TouchableOpacity>
-        <Text style={styles.title}>{title}</Text>
-        <Text style={styles.description}>{description}</Text>
+      <Header {...props} />
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate('Article', {
+            props,
+          })
+        }>
+        <Text style={styles.title}>{props.title}</Text>
+        <Text style={styles.description}>{props.description}</Text>
         <View style={styles.more}>
           <Text style={styles.readmore}>Read more...</Text>
           <View style={styles.tags}>
-            {tagList.map(item => (
+            {props.tagList.map(item => (
               <Text key={item} style={styles.tag}>
                 {item}
               </Text>
@@ -88,42 +38,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: 'rgba(0, 0, 0, 0.1)',
     marginBottom: 5,
-  },
-  image: {
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-  },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  left: {
-    flexDirection: 'row',
-  },
-  info: {
-    paddingLeft: 16,
-  },
-  username: {
-    color: '#5CB85C',
-  },
-  likes: {
-    borderWidth: 1,
-    fontSize: 26,
-    paddingHorizontal: 10,
-    borderRadius: 5,
-  },
-  liked: {
-    borderColor: '#5CB85C',
-    color: 'white',
-    backgroundColor: '#5CB85C',
-  },
-  notLiked: {
-    borderColor: '#5CB85C',
-    color: '#5CB85C',
-  },
-  date: {
-    color: '#bbb',
   },
   title: {
     color: '#373a3c',
