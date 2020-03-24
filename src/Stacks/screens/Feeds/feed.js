@@ -1,11 +1,11 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
 import {StoreContext} from '../../../context';
-import {StyledLoading} from '../../../components/StyledLoading';
+import {StyledLoading} from '../../../components/Styled';
 import ArticlePreview from './ArticlePreview';
 
 export default function Feed({getData}) {
-  const {token} = useContext(StoreContext);
+  const {user} = useContext(StoreContext);
   const [articles, setArticles] = useState([]);
   const [offset, setOffset] = useState(0);
   const [refresh, setRefresh] = useState(true);
@@ -14,18 +14,18 @@ export default function Feed({getData}) {
   useEffect(() => {
     if (refresh || offset) {
       if (offset) {
-        getData({offset}, token).then(data =>
+        getData({offset}, user ? user.token : undefined).then(data =>
           setArticles(state => state.concat(data)),
         );
       } else {
-        getData({}, token).then(data => {
+        getData({}, user ? user.token : undefined).then(data => {
           setArticles(data);
           setLoading(false);
         });
       }
       setRefresh(false);
     }
-  }, [offset, refresh, token, getData]);
+  }, [offset, refresh, user, getData]);
 
   if (loading) {
     return <StyledLoading />;

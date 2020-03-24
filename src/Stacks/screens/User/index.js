@@ -1,19 +1,23 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {StoreContext} from '../../../context';
 import {getMe} from '../../../api';
-import {StyledLoading} from '../../../components/StyledLoading';
+import {StyledLoading} from '../../../components/Styled';
 
 export default function UserScreen({navigation}) {
-  const {token} = useContext(StoreContext);
-  const [user, setUser] = useState({});
+  const {user} = useContext(StoreContext);
+  const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getMe(token)
-      .then(setUser)
+    getMe(user.token)
+      .then(UpdatedUser => {
+        setUserInfo(UpdatedUser);
+        AsyncStorage.setItem('user', JSON.stringify(UpdatedUser));
+      })
       .then(() => setLoading(false));
-  }, [token]);
+  }, [user.token]);
 
   if (loading) {
     return <StyledLoading />;
@@ -25,15 +29,15 @@ export default function UserScreen({navigation}) {
         <Image
           style={styles.image}
           source={{
-            uri: user.image
-              ? user.image
+            uri: userInfo.image
+              ? userInfo.image
               : 'https://static.productionready.io/images/smiley-cyrus.jpg',
           }}
         />
       </View>
 
-      <Text style={styles.username}>{user.username}</Text>
-      <Text style={styles.bio}>{user.bio}</Text>
+      <Text style={styles.username}>{userInfo.username}</Text>
+      <Text style={styles.bio}>{userInfo.bio}</Text>
     </View>
   );
 }

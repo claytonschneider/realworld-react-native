@@ -11,18 +11,18 @@ import AuthStack from './Stacks/Auth';
 const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
-  const {token} = useContext(StoreContext);
+  const {user} = useContext(StoreContext);
   return (
     <NavigationContainer>
-      <Tab.Navigator initialRouteName={token ? 'Your Feed' : 'Global Feed'}>
-        {token ? (
+      <Tab.Navigator initialRouteName={user ? 'Your Feed' : 'Global Feed'}>
+        {user ? (
           <Tab.Screen name={'Your Feed'} component={YourFeedStack} />
         ) : null}
         <Tab.Screen name={'Global Feed'} component={GlobalFeedStack} />
-        {token ? (
+        {user ? (
           <Tab.Screen name={'New Article'} component={NewArticleStack} />
         ) : null}
-        {token ? (
+        {user ? (
           <Tab.Screen name={'User'} component={UserStack} />
         ) : (
           <Tab.Screen name={'Sign In'} component={AuthStack} />

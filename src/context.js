@@ -3,11 +3,11 @@ import React, {useState, createContext} from 'react';
 export const StoreContext = createContext(null);
 
 export default ({children}) => {
-  const [token, setToken] = useState();
+  const [user, setUser] = useState();
 
   const store = {
-    token,
-    setToken,
+    user,
+    setUser,
   };
 
   return (

@@ -3,11 +3,10 @@ import {StyleSheet, Text, View, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import {signin, signup} from '../../../api';
 import {StoreContext} from '../../../context';
-import {StyledButton} from '../../../components/StyledButton';
-import {StyledLoading} from '../../../components/StyledLoading';
+import {StyledButton, StyledLoading} from '../../../components/Styled';
 
 export default function SignIn({navigation}) {
-  const {setToken} = useContext(StoreContext);
+  const {setUser} = useContext(StoreContext);
 
   const [oldUser, setoldUser] = useState(true); // true for sign in, false for sign up
   const [loading, setLoading] = useState(false);
@@ -23,16 +22,16 @@ export default function SignIn({navigation}) {
       signin(email, password)
         .then(user => {
           console.log(user);
-          AsyncStorage.setItem('user_token', user.token);
-          setToken(user.token);
+          AsyncStorage.setItem('user', JSON.stringify(user));
+          setUser(user);
         })
         .catch(setError)
         .finally(() => setLoading(false));
     } else {
       signup(email, password, username)
         .then(user => {
-          AsyncStorage.setItem('user_token', user.token);
-          setToken(user.token);
+          AsyncStorage.setItem('user', JSON.stringify(user));
+          setUser(user);
         })
         .catch(setError)
         .finally(() => setLoading(false));

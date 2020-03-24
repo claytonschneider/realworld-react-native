@@ -12,6 +12,10 @@ export function getGlobalFeed({offset = 0}, token) {
   return Get(`articles?offset=${offset}`, 'articles', token);
 }
 
+export function UpdateUser(user, token) {
+  return Put('user', 'user', user, token);
+}
+
 function Get(endPoint, key, token) {
   return new Promise((resolve, reject) => {
     let options = {};
@@ -21,6 +25,36 @@ function Get(endPoint, key, token) {
         headers: {
           Authorization: 'Token ' + token,
         },
+      };
+    }
+
+    fetch(apiUrl + endPoint, options)
+      .then(res => res.json())
+      .then(json => {
+        if (json[key]) {
+          resolve(json[key]);
+        } else {
+          reject(json);
+        }
+      })
+      .catch(reject);
+  });
+}
+
+function Put(endPoint, key, data, token) {
+  return new Promise((resolve, reject) => {
+    let options = {
+      method: 'PUT',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    if (token) {
+      options.headers = {
+        'Content-Type': 'application/json',
+        Authorization: 'Token ' + token,
       };
     }
 

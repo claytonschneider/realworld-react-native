@@ -17,17 +17,18 @@ export default function App() {
 
 function LoadToken({children}) {
   const [loading, setLoading] = useState(true);
-  const {token, setToken} = useContext(StoreContext);
+  const {user, setUser} = useContext(StoreContext);
 
   useEffect(() => {
-    AsyncStorage.getItem('user_token')
-      .then(setToken)
+    AsyncStorage.getItem('user')
+      .then(JSON.parse)
+      .then(setUser)
       .then(setLoading);
-  }, [setToken]);
+  }, [setUser]);
 
   useEffect(() => {
-    console.log(token ? token : 'no token');
-  }, [token]);
+    console.log(user ? user : 'no user');
+  }, [user]);
 
   if (loading) {
     return <StyledLoading />;

@@ -6,7 +6,7 @@ import {StoreContext} from '../../../context';
 export function Header(props) {
   const [liked, setLiked] = useState(props.favorited);
   const [likes, setLikes] = useState(props.favoritesCount);
-  const {token} = useContext(StoreContext);
+  const {user} = useContext(StoreContext);
   return (
     <View style={styles.header}>
       <View style={styles.left}>
@@ -29,10 +29,10 @@ export function Header(props) {
         <Text
           style={[styles.likes, styles.liked]}
           onPress={() => {
-            if (token) {
+            if (user) {
               setLiked(false);
               setLikes(n => n - 1);
-              UnFavouriteArticle(token, props.slug);
+              UnFavouriteArticle(user.token, props.slug);
             }
           }}>
           {likes}
@@ -41,10 +41,10 @@ export function Header(props) {
         <Text
           style={[styles.likes, styles.notLiked]}
           onPress={() => {
-            if (token) {
+            if (user) {
               setLiked(true);
               setLikes(n => n + 1);
-              FavouriteArticle(token, props.slug);
+              FavouriteArticle(user.token, props.slug);
             }
           }}>
           {likes}
