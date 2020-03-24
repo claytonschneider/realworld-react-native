@@ -4,6 +4,10 @@ export function getMe(token) {
   return Get('user', 'user', token);
 }
 
+export function getTags() {
+  return Get('tags', 'tags');
+}
+
 export function getProfile(username, token) {
   return Get('profiles/' + username, 'profile', token);
 }
@@ -12,7 +16,7 @@ export function getPersonalFeed({offset = 0}, token) {
   return Get(`articles/feed?offset=${offset}`, 'articles', token);
 }
 
-export function getGlobalFeed({offset = 0, author, favorited}, token) {
+export function getGlobalFeed({offset = 0, author, favorited, tag}, token) {
   let q = '?';
 
   if (offset) {
@@ -25,6 +29,10 @@ export function getGlobalFeed({offset = 0, author, favorited}, token) {
 
   if (favorited) {
     q += 'favorited=' + favorited + '&';
+  }
+
+  if (tag) {
+    q += 'tag=' + tag + '&';
   }
 
   return Get('articles' + q, 'articles', token);
