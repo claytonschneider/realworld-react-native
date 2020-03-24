@@ -1,6 +1,7 @@
 import React from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
 import {StyledLoading} from '../../../components/Styled';
+import Articles from './articles';
 
 export function User({loading, userInfo}) {
   if (loading) {
@@ -21,6 +22,7 @@ export function User({loading, userInfo}) {
 
       <Text style={styles.username}>{userInfo.username}</Text>
       <Text style={styles.bio}>{userInfo.bio}</Text>
+      <Articles />
     </View>
   );
 }
@@ -48,5 +50,6 @@ const styles = StyleSheet.create({
   bio: {
     color: '#aaa',
     textAlign: 'center',
+    padding: 10,
   },
 });

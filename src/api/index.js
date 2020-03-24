@@ -12,8 +12,22 @@ export function getPersonalFeed({offset = 0}, token) {
   return Get(`articles/feed?offset=${offset}`, 'articles', token);
 }
 
-export function getGlobalFeed({offset = 0}, token) {
-  return Get(`articles?offset=${offset}`, 'articles', token);
+export function getGlobalFeed({offset = 0, author, favorited}, token) {
+  let q = '?';
+
+  if (offset) {
+    q += 'offset=' + offset + '&';
+  }
+
+  if (author) {
+    q += 'author=' + author + '&';
+  }
+
+  if (favorited) {
+    q += 'favorited=' + favorited + '&';
+  }
+
+  return Get('articles' + q, 'articles', token);
 }
 
 export function UpdateUser(user, token) {

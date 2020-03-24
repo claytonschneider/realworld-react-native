@@ -4,7 +4,7 @@ import {StoreContext} from '../../../context';
 import {StyledLoading} from '../../../components/Styled';
 import ArticlePreview from './ArticlePreview';
 
-export default function Feed({getData}) {
+export default function Feed({getData, author, favorited}) {
   const {user} = useContext(StoreContext);
   const [articles, setArticles] = useState([]);
   const [offset, setOffset] = useState(0);
@@ -14,18 +14,21 @@ export default function Feed({getData}) {
   useEffect(() => {
     if (refresh || offset) {
       if (offset) {
-        getData({offset}, user ? user.token : undefined).then(data =>
-          setArticles(state => state.concat(data)),
-        );
+        getData(
+          {offset, author, favorited},
+          user ? user.token : undefined,
+        ).then(data => setArticles(state => state.concat(data)));
       } else {
-        getData({}, user ? user.token : undefined).then(data => {
-          setArticles(data);
-          setLoading(false);
-        });
+        getData({author, favorited}, user ? user.token : undefined).then(
+          data => {
+            setArticles(data);
+            setLoading(false);
+          },
+        );
       }
       setRefresh(false);
     }
-  }, [offset, refresh, user, getData]);
+  }, [offset, refresh, user, getData, author, favorited]);
 
   if (loading) {
     return <StyledLoading />;

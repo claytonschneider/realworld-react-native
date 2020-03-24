@@ -4,6 +4,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import User from './screens/User/index';
 import Settings from './screens/User/Settings';
+import Article from './screens/Feeds/Article';
+import Profile from './screens/User/Profile';
 
 const UserStack = createStackNavigator();
 
@@ -24,6 +26,12 @@ export default function({navigation}) {
         }}
       />
       <UserStack.Screen name={'Settings'} component={Settings} />
+      <UserStack.Screen
+        name={'Article'}
+        component={Article}
+        options={({route}) => ({title: route.params.title})}
+      />
+      <UserStack.Screen name={'Profile'} component={Profile} />
     </UserStack.Navigator>
   );
 }
