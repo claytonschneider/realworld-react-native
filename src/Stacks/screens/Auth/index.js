@@ -1,15 +1,16 @@
 import React, {useState, useContext} from 'react';
 import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
 import {signin, signup} from '../../../api';
 import {StoreContext} from '../../../context';
-import AsyncStorage from '@react-native-community/async-storage';
+import {StyledButton} from '../../../components/StyledButton';
 
 export default function SignIn({navigation}) {
   const {setToken} = useContext(StoreContext);
 
   const [oldUser, setoldUser] = useState(true); // true for sign in, false for sign up
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(' ');
+  const [error, setError] = useState();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,7 +25,8 @@ export default function SignIn({navigation}) {
           AsyncStorage.setItem('user_token', user.token);
           setToken(user.token);
         })
-        .catch(setError);
+        .catch(setError)
+        .finally(() => setLoading(false));
     } else {
       signup(email, password, username)
         .then(user => {
@@ -66,11 +68,7 @@ export default function SignIn({navigation}) {
           onChangeText={setUsername}
         />
       )}
-      <Button
-        title={oldUser ? 'Sign In' : 'Sign Up'}
-        style={styles.button}
-        onPress={Onpress}
-      />
+      <StyledButton title={oldUser ? 'Sign In' : 'Sign Up'} onPress={Onpress} />
     </View>
   );
 }
@@ -97,9 +95,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     padding: 10,
-    color: '#5CB85C',
-  },
-  button: {
     color: '#5CB85C',
   },
   error: {

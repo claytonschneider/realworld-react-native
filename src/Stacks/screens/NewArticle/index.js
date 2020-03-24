@@ -1,7 +1,8 @@
 import React, {useState, useContext} from 'react';
-import {StyleSheet, TextInput, ScrollView, Button} from 'react-native';
+import {StyleSheet, TextInput, ScrollView} from 'react-native';
 import {StoreContext} from '../../../context';
 import {CreateArticle} from '../../../api';
+import {StyledButton} from '../../../components/StyledButton';
 
 export default function NewArticleScreen({navigation}) {
   const {token} = useContext(StoreContext);
@@ -45,7 +46,7 @@ export default function NewArticleScreen({navigation}) {
         value={tags}
         onChangeText={setTags}
       />
-      <Button title="Publish Article" onPress={onPress} />
+      <StyledButton title="Publish Article" onPress={onPress} />
     </ScrollView>
   );
 }
