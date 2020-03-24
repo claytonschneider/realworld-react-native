@@ -2,6 +2,7 @@ import React, {useContext, useState, useEffect} from 'react';
 import {StyleSheet, Text, View, Image} from 'react-native';
 import {StoreContext} from '../../../context';
 import {getMe} from '../../../api';
+import {StyledLoading} from '../../../components/StyledLoading'
 
 export default function UserScreen({navigation}) {
   const {token} = useContext(StoreContext);
@@ -15,7 +16,7 @@ export default function UserScreen({navigation}) {
   }, [token]);
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <StyledLoading />;
   }
 
   return (
