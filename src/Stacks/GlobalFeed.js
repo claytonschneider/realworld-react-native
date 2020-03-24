@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import GlobalFeed from './screens/Feeds/global';
 import Article from './screens/Feeds/Article';
+import Profile from './screens/User/Profile';
 
 const GlobalFeedStack = createStackNavigator();
 
@@ -15,6 +16,7 @@ export default function() {
         component={Article}
         options={({route}) => ({title: route.params.title})}
       />
+      <GlobalFeedStack.Screen name={'Profile'} component={Profile} />
     </GlobalFeedStack.Navigator>
   );
 }

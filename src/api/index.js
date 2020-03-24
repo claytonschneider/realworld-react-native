@@ -4,6 +4,10 @@ export function getMe(token) {
   return Get('user', 'user', token);
 }
 
+export function getProfile(username, token) {
+  return Get('profiles/' + username, 'profile', token);
+}
+
 export function getPersonalFeed({offset = 0}, token) {
   return Get(`articles/feed?offset=${offset}`, 'articles', token);
 }

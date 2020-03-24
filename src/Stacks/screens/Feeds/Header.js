@@ -1,15 +1,22 @@
 import React, {useState, useContext} from 'react';
-import {Text, View, Image, StyleSheet} from 'react-native';
+import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {FavouriteArticle, UnFavouriteArticle} from '../../../api';
 import {StoreContext} from '../../../context';
+import {useNavigation} from '@react-navigation/native';
 
 export function Header(props) {
   const [liked, setLiked] = useState(props.favorited);
   const [likes, setLikes] = useState(props.favoritesCount);
   const {user} = useContext(StoreContext);
+  const navigation = useNavigation();
+
   return (
     <View style={styles.header}>
-      <View style={styles.left}>
+      <TouchableOpacity
+        style={styles.left}
+        onPress={() => {
+          navigation.navigate('Profile', props.author.username);
+        }}>
         <Image
           style={styles.image}
           source={{
@@ -24,7 +31,7 @@ export function Header(props) {
             {new Date(props.createdAt).toDateString()}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
       {liked ? (
         <Text
           style={[styles.likes, styles.liked]}
