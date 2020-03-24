@@ -1,6 +1,4 @@
-import React, {useEffect, useState, useContext} from 'react';
-import {Text} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
+import React, {useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StoreContext} from './context';
@@ -13,22 +11,7 @@ import AuthStack from './Stacks/Auth';
 const Tab = createBottomTabNavigator();
 
 export default function Navigator() {
-  const [loading, setLoading] = useState(true);
-  const {token, setToken} = useContext(StoreContext);
-
-  useEffect(() => {
-    AsyncStorage.getItem('user_token')
-      .then(setToken)
-      .then(setLoading);
-  }, [setToken]);
-
-  useEffect(() => {
-    console.log(token ? token : 'no token');
-  }, [token]);
-
-  if (loading) {
-    return <Text>Loading...</Text>;
-  }
+  const {token} = useContext(StoreContext);
   return (
     <NavigationContainer>
       <Tab.Navigator initialRouteName={token ? 'Your Feed' : 'Global Feed'}>

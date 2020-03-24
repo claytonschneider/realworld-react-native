@@ -1,10 +1,9 @@
 import React, {useState, useContext} from 'react';
-import {StyleSheet, Text, View, Image} from 'react-native';
+import {StyleSheet, Text, View, Image, TouchableOpacity} from 'react-native';
 import {FavouriteArticle, UnFavouriteArticle} from '../../../api';
 import {StoreContext} from '../../../context';
 
 export default function ArticlePreview({
-  loggedIn,
   slug,
   title,
   body,
@@ -41,7 +40,7 @@ export default function ArticlePreview({
           <Text
             style={[styles.likes, styles.liked]}
             onPress={() => {
-              if (loggedIn) {
+              if (token) {
                 setLiked(false);
                 setLikes(n => n - 1);
                 UnFavouriteArticle(token, slug);
@@ -53,7 +52,7 @@ export default function ArticlePreview({
           <Text
             style={[styles.likes, styles.notLiked]}
             onPress={() => {
-              if (loggedIn) {
+              if (token) {
                 setLiked(true);
                 setLikes(n => n + 1);
                 FavouriteArticle(token, slug);
@@ -63,18 +62,20 @@ export default function ArticlePreview({
           </Text>
         )}
       </View>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
-      <View style={styles.more}>
-        <Text style={styles.readmore}>Read more...</Text>
-        <View style={styles.tags}>
-          {tagList.map(item => (
-            <Text key={item} style={styles.tag}>
-              {item}
-            </Text>
-          ))}
+      <TouchableOpacity>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
+        <View style={styles.more}>
+          <Text style={styles.readmore}>Read more...</Text>
+          <View style={styles.tags}>
+            {tagList.map(item => (
+              <Text key={item} style={styles.tag}>
+                {item}
+              </Text>
+            ))}
+          </View>
         </View>
-      </View>
+      </TouchableOpacity>
     </View>
   );
 }

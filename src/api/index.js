@@ -4,12 +4,12 @@ export function getMe(token) {
   return Get('user', 'user', token);
 }
 
-export function getPersonalFeed(token) {
-  return Get('articles/feed', 'articles', token);
+export function getPersonalFeed({offset = 0}, token) {
+  return Get(`articles/feed?offset=${offset}`, 'articles', token);
 }
 
-export function getGlobalFeed() {
-  return Get('articles', 'articles');
+export function getGlobalFeed({offset = 0}, token) {
+  return Get(`articles?offset=${offset}`, 'articles', token);
 }
 
 function Get(endPoint, key, token) {
