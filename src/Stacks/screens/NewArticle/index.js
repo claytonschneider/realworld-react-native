@@ -16,6 +16,10 @@ export default function NewArticleScreen({navigation}) {
       CreateArticle(token, title, description, article, tags.split(' '))
         .then(console.log)
         .catch(console.warn);
+      setTitle('');
+      setDescription('');
+      setArticle('');
+      setTags('');
     }
   }
 
@@ -46,7 +50,11 @@ export default function NewArticleScreen({navigation}) {
         value={tags}
         onChangeText={setTags}
       />
-      <StyledButton title="Publish Article" onPress={onPress} />
+      <StyledButton
+        title="Publish Article"
+        onPress={onPress}
+        disabled={!(title && description && article)}
+      />
     </ScrollView>
   );
 }
@@ -61,5 +69,6 @@ const styles = StyleSheet.create({
     padding: 5,
     margin: 5,
     borderRadius: 5,
+    borderColor: 'rgba(0, 0, 0, 0.30)',
   },
 });

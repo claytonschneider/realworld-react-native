@@ -1,11 +1,16 @@
 import React from 'react';
 import {Button, View, StyleSheet} from 'react-native';
 
-export function StyledButton({title, onPress}) {
+export function StyledButton({title, onPress, disabled}) {
   return (
     <View style={styles.container}>
       <View style={styles.button}>
-        <Button color="#5CB85C" title={title} onPress={onPress} />
+        <Button
+          color="#5CB85C"
+          title={title}
+          onPress={onPress}
+          disabled={disabled}
+        />
       </View>
     </View>
   );

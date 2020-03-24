@@ -4,6 +4,7 @@ import {FavouriteArticle, UnFavouriteArticle} from '../../../api';
 import {StoreContext} from '../../../context';
 
 export default function ArticlePreview({
+  loggedIn,
   slug,
   title,
   body,
@@ -40,9 +41,11 @@ export default function ArticlePreview({
           <Text
             style={[styles.likes, styles.liked]}
             onPress={() => {
-              setLiked(false);
-              setLikes(n => n - 1);
-              UnFavouriteArticle(token, slug);
+              if (loggedIn) {
+                setLiked(false);
+                setLikes(n => n - 1);
+                UnFavouriteArticle(token, slug);
+              }
             }}>
             {likes}
           </Text>
@@ -50,9 +53,11 @@ export default function ArticlePreview({
           <Text
             style={[styles.likes, styles.notLiked]}
             onPress={() => {
-              setLiked(true);
-              setLikes(n => n + 1);
-              FavouriteArticle(token, slug);
+              if (loggedIn) {
+                setLiked(true);
+                setLikes(n => n + 1);
+                FavouriteArticle(token, slug);
+              }
             }}>
             {likes}
           </Text>

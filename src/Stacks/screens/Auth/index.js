@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import {signin, signup} from '../../../api';
 import {StoreContext} from '../../../context';
 import {StyledButton} from '../../../components/StyledButton';
+import {StyledLoading} from '../../../components/StyledLoading';
 
 export default function SignIn({navigation}) {
   const {setToken} = useContext(StoreContext);
@@ -33,12 +34,13 @@ export default function SignIn({navigation}) {
           AsyncStorage.setItem('user_token', user.token);
           setToken(user.token);
         })
-        .catch(setError);
+        .catch(setError)
+        .finally(() => setLoading(false));
     }
   }
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return <StyledLoading text={oldUser ? 'Signing In' : 'Signing Up'} />;
   }
 
   return (
@@ -53,12 +55,20 @@ export default function SignIn({navigation}) {
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
+        autoCompleteType="email"
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoFocus={true}
       />
       <TextInput
         style={styles.input}
         placeholder="password"
         value={password}
         onChangeText={setPassword}
+        secureTextEntry={true}
+        autoCapitalize="none"
+        autoCorrect={false}
+        autoCompleteType="password"
       />
       {oldUser ? null : (
         <TextInput
@@ -68,7 +78,13 @@ export default function SignIn({navigation}) {
           onChangeText={setUsername}
         />
       )}
-      <StyledButton title={oldUser ? 'Sign In' : 'Sign Up'} onPress={Onpress} />
+      <StyledButton
+        title={oldUser ? 'Sign In' : 'Sign Up'}
+        onPress={Onpress}
+        disabled={
+          oldUser ? !(email && password) : !(email && password && username)
+        }
+      />
     </View>
   );
 }

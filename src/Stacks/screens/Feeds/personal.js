@@ -19,6 +19,7 @@ export default function GlobalFeedScreen({navigation}) {
         data={articles}
         renderItem={({item}) => (
           <ArticlePreview
+            loggedIn={token}
             id={item.slug}
             slug={item.slug}
             title={item.title}
