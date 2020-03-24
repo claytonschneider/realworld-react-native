@@ -8,6 +8,10 @@ export function getTags() {
   return Get('tags', 'tags');
 }
 
+export function getComments(slug) {
+  return Get(`articles/${slug}/comments`, 'comments');
+}
+
 export function getProfile(username, token) {
   return Get('profiles/' + username, 'profile', token);
 }

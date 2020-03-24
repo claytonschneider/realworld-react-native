@@ -38,31 +38,33 @@ export function Header(props) {
           </Text>
         </View>
       </TouchableOpacity>
-      {liked ? (
-        <Text
-          style={[styles.likes, styles.liked]}
-          onPress={() => {
-            if (user) {
-              setLiked(false);
-              setLikes(n => n - 1);
-              UnFavouriteArticle(user.token, props.slug);
-            }
-          }}>
-          {likes}
-        </Text>
-      ) : (
-        <Text
-          style={[styles.likes, styles.notLiked]}
-          onPress={() => {
-            if (user) {
-              setLiked(true);
-              setLikes(n => n + 1);
-              FavouriteArticle(user.token, props.slug);
-            }
-          }}>
-          {likes}
-        </Text>
-      )}
+      {!props.noFavorites ? (
+        liked ? (
+          <Text
+            style={[styles.likes, styles.liked]}
+            onPress={() => {
+              if (user) {
+                setLiked(false);
+                setLikes(n => n - 1);
+                UnFavouriteArticle(user.token, props.slug);
+              }
+            }}>
+            {likes}
+          </Text>
+        ) : (
+          <Text
+            style={[styles.likes, styles.notLiked]}
+            onPress={() => {
+              if (user) {
+                setLiked(true);
+                setLikes(n => n + 1);
+                FavouriteArticle(user.token, props.slug);
+              }
+            }}>
+            {likes}
+          </Text>
+        )
+      ) : null}
     </View>
   );
 }

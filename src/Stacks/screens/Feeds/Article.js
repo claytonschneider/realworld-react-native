@@ -1,11 +1,13 @@
-import React from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {Header} from './Header';
+import {getComments} from '../../../api';
+import {StyledLoading} from '../../../components/Styled';
 
 export default function ArticleScreen() {
   const props = useRoute().params;
-  const {description, body} = props;
+  const {description, body, slug} = props;
 
   return (
     <View style={styles.container}>
@@ -13,8 +15,43 @@ export default function ArticleScreen() {
       <ScrollView>
         <Text style={styles.description}>{description}</Text>
         <Text style={styles.body}>{body}</Text>
+        <Comments slug={slug} />
       </ScrollView>
     </View>
+  );
+}
+
+function Comments({slug}) {
+  const [loading, setLoading] = useState(true);
+  const [comments, setComments] = useState([]);
+  const [error, setError] = useState();
+
+  useEffect(() => {
+    getComments(slug)
+      .then(setComments)
+      .catch(setError)
+      .finally(() => setLoading(false));
+  }, [slug]);
+
+  if (loading) {
+    return <StyledLoading />;
+  }
+
+  return (
+    <>
+      <Text style={styles.comments}>Comments</Text>
+      <Text>{JSON.stringify(error)}</Text>
+      <FlatList
+        data={comments}
+        keyExtractor={(item, i) => item.id + i}
+        renderItem={({item}) => (
+          <>
+            <Header {...item} noFavorites />
+            <Text style={styles.comment}>{item.body}</Text>
+          </>
+        )}
+      />
+    </>
   );
 }
 
@@ -23,9 +60,10 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 7,
   },
-  title: {
-    fontSize: 32,
-    padding: 10,
+  comments: {
+    fontSize: 24,
+    paddingTop: 20,
+    textAlign: 'center',
   },
   description: {
     fontSize: 14,
@@ -35,5 +73,8 @@ const styles = StyleSheet.create({
   body: {
     fontSize: 16,
     color: '#373a3c',
+  },
+  comment: {
+    padding: 10,
   },
 });
