@@ -16,7 +16,10 @@ export function Header(props) {
       <TouchableOpacity
         style={styles.left}
         onPress={() => {
-          navigation.navigate('Profile', props.author.username);
+          console.log(props.author.username.toString());
+          navigation.navigate('Profile', {
+            username: props.author.username.toString(),
+          });
         }}>
         <Image
           style={styles.image}

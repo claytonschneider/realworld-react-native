@@ -6,7 +6,7 @@ import {useRoute} from '@react-navigation/native';
 
 export default function UserScreen() {
   const {user} = useContext(StoreContext);
-  const username = useRoute().params;
+  const {username} = useRoute().params;
   const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(true);
 
