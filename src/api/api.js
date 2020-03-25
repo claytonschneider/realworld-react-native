@@ -118,7 +118,7 @@ export default class api {
 
   addQueries(queries) {
     let q = '?';
-    console.log(queries)
+    console.log(queries);
     Object.keys(queries).forEach((value, index) => {
       if (queries[value]) {
         q += value + '=' + queries[value] + '&';

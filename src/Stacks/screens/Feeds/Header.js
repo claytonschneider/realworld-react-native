@@ -51,7 +51,7 @@ export function Header(props) {
               if (user) {
                 setLiked(false);
                 setLikes(n => n - 1);
-                api.removeFavorite(props.slug);
+                api.removeFavorite(props.slug).catch(() => setLiked(true));
               }
             }}>
             {likes}
@@ -63,7 +63,7 @@ export function Header(props) {
               if (user) {
                 setLiked(true);
                 setLikes(n => n + 1);
-                api.setFavorite(props.slug);
+                api.setFavorite(props.slug).catch(() => setLiked(false));
               }
             }}>
             {likes}
