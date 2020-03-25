@@ -32,7 +32,9 @@ export function Header(props) {
           }}
         />
         <View style={styles.info}>
-          <Text style={styles.username}>{props.author.username}</Text>
+          <Text style={styles.username}>
+            {props.author.username.toString()}
+          </Text>
           <Text style={styles.date}>
             {new Date(props.createdAt).toDateString()}
           </Text>

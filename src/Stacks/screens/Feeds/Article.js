@@ -43,11 +43,11 @@ function Comments({slug}) {
       <Text>{JSON.stringify(error)}</Text>
       <FlatList
         data={comments}
-        keyExtractor={(item, i) => item.id + i}
+        keyExtractor={(item, i) => (item.id + i).toString()}
         renderItem={({item}) => (
           <>
             <Header {...item} noFavorites />
-            <Text style={styles.comment}>{item.body}</Text>
+            <Text style={styles.comment}>{item.body.toString()}</Text>
           </>
         )}
       />
