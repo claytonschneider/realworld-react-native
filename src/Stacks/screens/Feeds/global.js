@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {getGlobalFeed, getTags} from '../../../api';
+import api from '../../../api';
 import {View, Text, StyleSheet, FlatList} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
@@ -12,7 +12,7 @@ export default function GlobalFeedScreen() {
   return (
     <>
       <Tags setTag={setTag} tag={tag} />
-      <Feed getData={getGlobalFeed} tag={tag} />
+      <Feed tag={tag} />
     </>
   );
 }
@@ -22,7 +22,7 @@ function Tags({tag, setTag}) {
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
-    getTags().then(setTags);
+    api.getTags().then(setTags);
   }, []);
 
   return (

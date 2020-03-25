@@ -1,11 +1,10 @@
-import React, {useEffect, useState, useContext} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, FlatList} from 'react-native';
-import {StoreContext} from '../../../context';
 import {StyledLoading} from '../../../components/Styled';
 import ArticlePreview from './ArticlePreview';
+import api from '../../../api';
 
-export default function Feed({getData, author, favorited, tag}) {
-  const {user} = useContext(StoreContext);
+export default function Feed({author, favorited, tag, personal}) {
   const [articles, setArticles] = useState([]);
   const [offset, setOffset] = useState(0);
   const [refresh, setRefresh] = useState(true);
@@ -13,22 +12,32 @@ export default function Feed({getData, author, favorited, tag}) {
 
   useEffect(() => {
     if (refresh || offset) {
-      if (offset) {
-        getData(
-          {offset, author, favorited, tag},
-          user ? user.token : undefined,
-        ).then(data => setArticles(state => state.concat(data)));
-      } else {
-        getData({author, favorited, tag}, user ? user.token : undefined).then(
-          data => {
+      if (personal) {
+        if (offset) {
+          api
+            .getPersonalFeed(offset)
+            .then(data => setArticles(state => state.concat(data)));
+        } else {
+          api.getPersonalFeed().then(data => {
             setArticles(data);
             setLoading(false);
-          },
-        );
+          });
+        }
+      } else {
+        if (offset) {
+          api
+            .getGlobalFeed({offset, author, favorited, tag})
+            .then(data => setArticles(state => state.concat(data)));
+        } else {
+          api.getGlobalFeed({author, favorited, tag}).then(data => {
+            setArticles(data);
+            setLoading(false);
+          });
+        }
       }
     }
     setRefresh(false);
-  }, [offset, refresh, user, getData, author, favorited, tag]);
+  }, [offset, refresh, author, favorited, tag, personal]);
 
   useEffect(() => {
     if (tag) {

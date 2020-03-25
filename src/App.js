@@ -4,6 +4,7 @@ import {StoreContext} from './context';
 import StoreProvider from './context';
 import Navigator from './Navigation';
 import {StyledLoading} from './components/StyledLoading';
+import api from './api';
 
 export default function App() {
   return (
@@ -22,9 +23,19 @@ function LoadToken({children}) {
   useEffect(() => {
     AsyncStorage.getItem('user')
       .then(JSON.parse)
-      .then(setUser)
-      .then(setLoading);
+      .then(newUser => {
+        setUser(newUser);
+        setLoading(false);
+      });
   }, [setUser]);
+
+  useEffect(() => {
+    if (user) {
+      if (user.token) {
+        api.setToken(user.token);
+      }
+    }
+  }, [user]);
 
   useEffect(() => {
     console.log(user ? user : 'no user');

@@ -1,7 +1,6 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
-import {StoreContext} from '../../../context';
-import {CreateArticle} from '../../../api';
+import api from '../../../api';
 import {
   StyledButton,
   StyledLoading,
@@ -9,17 +8,17 @@ import {
 } from '../../../components/Styled';
 
 export default function NewArticleScreen({navigation}) {
-  const {user} = useContext(StoreContext);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [article, setArticle] = useState('');
+  const [body, setBody] = useState('');
   const [tags, setTags] = useState('');
   const [loading, setLoading] = useState(false);
 
   function onPress() {
-    if (title && description && article) {
+    if (title && description && body) {
       setLoading(true);
-      CreateArticle(user.token, title, description, article, tags.split(' '))
+      api
+        .setArticle(title, description, body, tags.split(' '))
         .then(newArticle => {
           navigation.navigate('Article', newArticle);
         })
@@ -27,7 +26,7 @@ export default function NewArticleScreen({navigation}) {
         .finally(() => setLoading(false));
       setTitle('');
       setDescription('');
-      setArticle('');
+      setBody('');
       setTags('');
     }
   }
@@ -50,8 +49,8 @@ export default function NewArticleScreen({navigation}) {
       />
       <StyledInput
         placeholder="Write your article"
-        value={article}
-        onChangeText={setArticle}
+        value={body}
+        onChangeText={setBody}
         multiline
       />
       <StyledInput
@@ -62,7 +61,7 @@ export default function NewArticleScreen({navigation}) {
       <StyledButton
         title="Publish Article"
         onPress={onPress}
-        disabled={!(title && description && article)}
+        disabled={!(title && description && body)}
       />
     </ScrollView>
   );

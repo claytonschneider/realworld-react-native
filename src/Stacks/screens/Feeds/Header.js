@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {Text, View, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {FavouriteArticle, UnFavouriteArticle} from '../../../api';
+import api from '../../../api';
 import {StoreContext} from '../../../context';
 import {useNavigation} from '@react-navigation/native';
 
@@ -51,7 +51,7 @@ export function Header(props) {
               if (user) {
                 setLiked(false);
                 setLikes(n => n - 1);
-                UnFavouriteArticle(user.token, props.slug);
+                api.removeFavorite(props.slug);
               }
             }}>
             {likes}
@@ -63,7 +63,7 @@ export function Header(props) {
               if (user) {
                 setLiked(true);
                 setLikes(n => n + 1);
-                FavouriteArticle(user.token, props.slug);
+                api.setFavorite(props.slug);
               }
             }}>
             {likes}

@@ -3,8 +3,6 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import Feed from '../Feeds/feed';
 import {StoreContext} from '../../../context';
 
-import {getGlobalFeed} from '../../../api';
-
 const Tab = createMaterialTopTabNavigator();
 
 export default function Articles({username}) {
@@ -16,10 +14,10 @@ export default function Articles({username}) {
         name={`${
           username === user.username ? 'My' : `${username}'s`
         } Articles`}>
-        {() => <Feed getData={getGlobalFeed} author={username} />}
+        {() => <Feed author={username} />}
       </Tab.Screen>
       <Tab.Screen name={'Favorited Articles'}>
-        {() => <Feed getData={getGlobalFeed} favorited={username} />}
+        {() => <Feed favorited={username} />}
       </Tab.Screen>
     </Tab.Navigator>
   );

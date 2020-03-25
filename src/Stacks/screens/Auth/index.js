@@ -1,7 +1,7 @@
 import React, {useState, useContext} from 'react';
 import {StyleSheet, Text, View, TextInput} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
-import {signin, signup} from '../../../api';
+import api from '../../../api';
 import {StoreContext} from '../../../context';
 import {StyledButton, StyledLoading} from '../../../components/Styled';
 
@@ -19,7 +19,8 @@ export default function SignIn({navigation}) {
   function Onpress() {
     setLoading(true);
     if (oldUser) {
-      signin(email, password)
+      api
+        .signIn(email, password)
         .then(user => {
           console.log(user);
           AsyncStorage.setItem('user', JSON.stringify(user));
@@ -28,7 +29,8 @@ export default function SignIn({navigation}) {
         .catch(setError)
         .finally(() => setLoading(false));
     } else {
-      signup(email, password, username)
+      api
+        .signUp(email, password, username)
         .then(user => {
           AsyncStorage.setItem('user', JSON.stringify(user));
           setUser(user);

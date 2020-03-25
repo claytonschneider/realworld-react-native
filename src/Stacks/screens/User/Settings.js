@@ -7,7 +7,7 @@ import {
   StyledLoading,
 } from '../../../components/Styled';
 import {StoreContext} from '../../../context';
-import {UpdateUser} from '../../../api';
+import api from '../../../api';
 
 export default function SettingsScreen({navigation}) {
   const {user, setUser} = useContext(StoreContext);
@@ -45,7 +45,8 @@ export default function SettingsScreen({navigation}) {
       updated.password = password;
     }
 
-    UpdateUser({user: updated}, user.token)
+    api
+      .updateUser({user: updated})
       .then(newUser => {
         setUser(newUser);
         AsyncStorage.setItem('user', JSON.stringify(newUser));

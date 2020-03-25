@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {Header} from './Header';
-import {getComments} from '../../../api';
+import api from '../../../api';
 import {StyledLoading} from '../../../components/Styled';
 
 export default function ArticleScreen() {
@@ -27,7 +27,8 @@ function Comments({slug}) {
   const [error, setError] = useState();
 
   useEffect(() => {
-    getComments(slug)
+    api
+      .getComments(slug)
       .then(setComments)
       .catch(setError)
       .finally(() => setLoading(false));
