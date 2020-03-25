@@ -20,5 +20,5 @@ For more information on how to this works with other frontends/backends, head ov
 # Getting started
 
 > https://reactnative.dev/docs/getting-started
-> yarn, npx react-native run-ios
+> yarn; cd ios; pod install; cd ..; npx react-native run-ios
 
