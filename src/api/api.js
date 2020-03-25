@@ -41,11 +41,11 @@ export default class api {
   }
 
   setFavorite(slug) {
-    return this.Post(`articles/${slug}/favorite`);
+    return this.Post(`articles/${slug}/favorite`, {}, 'article');
   }
 
   removeFavorite(slug) {
-    return this.Delete(`articles/${slug}/favorite`);
+    return this.Delete(`articles/${slug}/favorite`, 'article');
   }
 
   setArticle(title, description, body, tagList) {
@@ -88,13 +88,9 @@ export default class api {
     return this.request(endPoint, key, options);
   }
 
-  Delete(endPoint, data = {}, key) {
+  Delete(endPoint, key) {
     let options = {
       method: 'DELETE',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-Type': 'application/json',
-      },
     };
 
     this.addToken(options);
