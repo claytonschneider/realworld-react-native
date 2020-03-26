@@ -13,6 +13,9 @@ import api from '../../../api';
 import {StyledLoading} from '../../../components/Styled';
 import {useNavigation} from '@react-navigation/native';
 import {StoreContext} from '../../../context';
+import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+
+const ArticleTab = createMaterialTopTabNavigator();
 
 export default function ArticleScreen() {
   const props = useRoute().params;
@@ -46,11 +49,19 @@ export default function ArticleScreen() {
   return (
     <View style={styles.container}>
       <Header {...props} follow />
-      <ScrollView>
-        <Text style={styles.description}>{description}</Text>
-        <Text style={styles.body}>{body}</Text>
-        <Comments slug={slug} />
-      </ScrollView>
+      <ArticleTab.Navigator initialRouteName={'Article'} style={styles.tabs}>
+        <ArticleTab.Screen name={'Article'}>
+          {() => (
+            <ScrollView>
+              <Text style={styles.description}>{description}</Text>
+              <Text style={styles.body}>{body}</Text>
+            </ScrollView>
+          )}
+        </ArticleTab.Screen>
+        <ArticleTab.Screen name={'Comments'}>
+          {() => <Comments slug={slug} />}
+        </ArticleTab.Screen>
+      </ArticleTab.Navigator>
     </View>
   );
 }
@@ -73,20 +84,17 @@ function Comments({slug}) {
   }
 
   return (
-    <>
-      <Text style={styles.comments}>Comments</Text>
-      <Text>{JSON.stringify(error)}</Text>
-      <FlatList
-        data={comments}
-        keyExtractor={(item, i) => (item.id + i).toString()}
-        renderItem={({item}) => (
-          <>
-            <Header {...item} noFavorites />
-            <Text style={styles.comment}>{item.body.toString()}</Text>
-          </>
-        )}
-      />
-    </>
+    <FlatList
+      data={comments}
+      keyExtractor={(item, i) => (item.id + i).toString()}
+      ListEmptyComponent={() => <Text>{JSON.stringify(error)}</Text>}
+      renderItem={({item}) => (
+        <>
+          <Header {...item} noFavorites />
+          <Text style={styles.comment}>{item.body.toString()}</Text>
+        </>
+      )}
+    />
   );
 }
 
@@ -111,5 +119,8 @@ const styles = StyleSheet.create({
   },
   comment: {
     padding: 10,
+  },
+  tabs: {
+    marginVertical: 10,
   },
 });

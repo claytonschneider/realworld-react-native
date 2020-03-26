@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StoreContext} from './context';
 import YourFeedStack from './Stacks/YourFeed';
@@ -10,10 +10,21 @@ import AuthStack from './Stacks/Auth';
 
 const Tab = createBottomTabNavigator();
 
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'rgb(179, 104, 178)',
+    border: 'rgb(179, 104, 178)',
+    card: 'white',
+    background: 'white',
+  },
+};
+
 export default function Navigator() {
   const {user} = useContext(StoreContext);
   return (
-    <NavigationContainer>
+    <NavigationContainer theme={MyTheme}>
       <Tab.Navigator initialRouteName={user ? 'Your Feed' : 'Global Feed'}>
         {user ? (
           <Tab.Screen name={'Your Feed'} component={YourFeedStack} />

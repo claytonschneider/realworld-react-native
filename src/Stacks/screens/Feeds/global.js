@@ -56,6 +56,7 @@ function Tags({tag, setTag}) {
 const styles = StyleSheet.create({
   container: {
     borderBottomWidth: 1,
+    borderBottomColor: 'rgba(0, 0, 0, 0.2)',
     padding: 5,
     margin: 4,
     flexDirection: 'row',

@@ -29,7 +29,7 @@ export function User({loading, userInfo}) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 3,
+    padding: 7,
   },
   username: {
     fontSize: 32,
