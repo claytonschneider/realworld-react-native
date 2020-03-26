@@ -1,9 +1,13 @@
 import React, {useState, useContext} from 'react';
-import {StyleSheet, Text, View, TextInput} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import api from '../../../api';
 import {StoreContext} from '../../../context';
-import {StyledButton, StyledLoading} from '../../../components/Styled';
+import {
+  StyledButton,
+  StyledLoading,
+  StyledInput,
+} from '../../../components/Styled';
 
 export default function SignIn({navigation}) {
   const {setUser} = useContext(StoreContext);
@@ -51,8 +55,7 @@ export default function SignIn({navigation}) {
         {oldUser ? 'Need an Account?' : 'Have an Account?'}
       </Text>
       {error ? <Text style={styles.error}>{JSON.stringify(error)}</Text> : null}
-      <TextInput
-        style={styles.input}
+      <StyledInput
         placeholder="Email"
         value={email}
         onChangeText={setEmail}
@@ -61,8 +64,7 @@ export default function SignIn({navigation}) {
         autoCorrect={false}
         autoFocus={true}
       />
-      <TextInput
-        style={styles.input}
+      <StyledInput
         placeholder="password"
         value={password}
         onChangeText={setPassword}
@@ -72,8 +74,7 @@ export default function SignIn({navigation}) {
         autoCompleteType="password"
       />
       {oldUser ? null : (
-        <TextInput
-          style={styles.input}
+        <StyledInput
           placeholder="username"
           value={username}
           onChangeText={setUsername}
@@ -95,13 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     paddingTop: 50,
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.30)',
-    borderRadius: 5,
-    padding: 5,
-    margin: 5,
   },
   title: {
     fontSize: 32,

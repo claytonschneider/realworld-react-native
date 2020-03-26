@@ -102,6 +102,15 @@ export function Header(props) {
             </Text>
           )
         ) : null}
+        {props.deleteCallback ? (
+          props.author.username === user?.username ? (
+            <Text
+              style={[styles.likes, styles.notLiked]}
+              onPress={props.deleteCallback}>
+              ×
+            </Text>
+          ) : null
+        ) : null}
       </View>
     </View>
   );

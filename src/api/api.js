@@ -48,6 +48,14 @@ export default class api {
     return this.Delete(`articles/${slug}/favorite`, 'article');
   }
 
+  setComment(slug, body) {
+    return this.Post(`articles/${slug}/comments`, {comment: {body}}, 'comment');
+  }
+
+  removeComment(slug, id) {
+    return this.Delete(`articles/${slug}/comments/${id}`, null);
+  }
+
   setArticle(title, description, body, tagList) {
     return this.Post(
       'articles',

@@ -10,7 +10,7 @@ import {
 import {useRoute} from '@react-navigation/native';
 import {Header} from './Header';
 import api from '../../../api';
-import {StyledLoading} from '../../../components/Styled';
+import {StyledLoading, StyledInput} from '../../../components/Styled';
 import {useNavigation} from '@react-navigation/native';
 import {StoreContext} from '../../../context';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
@@ -84,17 +84,64 @@ function Comments({slug}) {
   }
 
   return (
-    <FlatList
-      data={comments}
-      keyExtractor={(item, i) => (item.id + i).toString()}
-      ListEmptyComponent={() => <Text>{JSON.stringify(error)}</Text>}
-      renderItem={({item}) => (
-        <>
-          <Header {...item} noFavorites />
-          <Text style={styles.comment}>{item.body.toString()}</Text>
-        </>
-      )}
-    />
+    <>
+      <NewComment slug={slug} setComments={setComments} />
+      <FlatList
+        data={comments}
+        keyExtractor={(item, i) => (item.id + i).toString()}
+        ListEmptyComponent={() => <Text>{JSON.stringify(error)}</Text>}
+        renderItem={({item}) => (
+          <>
+            <Header
+              {...item}
+              noFavorites
+              deleteCallback={() => {
+                api.removeComment(slug, item.id).then(() => {
+                  setComments(
+                    comments.filter(comment => {
+                      return comment.id !== item.id;
+                    }),
+                  );
+                });
+                // .catch(setError);
+              }}
+            />
+            <Text style={styles.comment}>{item.body.toString()}</Text>
+          </>
+        )}
+      />
+    </>
+  );
+}
+
+function NewComment({slug, setComments}) {
+  const [text, setText] = useState('');
+  const [error, setError] = useState();
+
+  function Submit() {
+    api
+      .setComment(slug, text)
+      .then(newComment => setComments(state => state.concat([newComment])))
+      .catch(setError);
+  }
+
+  return (
+    <>
+      {error ? <Text>{JSON.stringify(error)}</Text> : null}
+      <View style={styles.newComment}>
+        <StyledInput
+          placeholder="Leave a comment..."
+          onChangeText={setText}
+          value={text}
+        />
+        <Button
+          style={styles.newCommentButton}
+          color="#5CB85C"
+          title="Send"
+          onPress={Submit}
+        />
+      </View>
+    </>
   );
 }
 
@@ -122,5 +169,12 @@ const styles = StyleSheet.create({
   },
   tabs: {
     marginVertical: 10,
+  },
+  newComment: {
+    flexDirection: 'row',
+    marginVertical: 10,
+  },
+  newCommentButton: {
+    borderRadius: 5,
   },
 });

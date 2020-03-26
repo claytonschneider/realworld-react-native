@@ -69,7 +69,7 @@ export default function SettingsScreen({navigation}) {
 
   return (
     <View style={styles.container}>
-      <View>
+      <View style={styles.settings}>
         <Text>{JSON.stringify(error)}</Text>
         <StyledInput
           placeholder="URL of profile picture"
@@ -109,5 +109,9 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 3,
     justifyContent: 'space-evenly',
+  },
+  settings: {
+    flex: 1,
+    padding: 5,
   },
 });
