@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, ScrollView, Button} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, ScrollView} from 'react-native';
 import api from '../../../api';
 import {
   StyledButton,
