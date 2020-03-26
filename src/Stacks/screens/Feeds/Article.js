@@ -1,13 +1,47 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Text, View, ScrollView, FlatList} from 'react-native';
+import React, {useEffect, useState, useContext} from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  FlatList,
+  Button,
+} from 'react-native';
 import {useRoute} from '@react-navigation/native';
 import {Header} from './Header';
 import api from '../../../api';
 import {StyledLoading} from '../../../components/Styled';
+import {useNavigation} from '@react-navigation/native';
+import {StoreContext} from '../../../context';
 
 export default function ArticleScreen() {
   const props = useRoute().params;
-  const {description, body, slug} = props;
+  const {description, body, slug, author, title, tagList} = props;
+  const navigation = useNavigation();
+  const {user} = useContext(StoreContext);
+
+  useEffect(() => {
+    if (author.username === user.username) {
+      navigation.setOptions({
+        headerRight: () => (
+          <Button
+            onPress={() => {
+              navigation.navigate('Edit Article', {
+                editing: true,
+                description,
+                body,
+                title,
+                slug,
+                tags: tagList,
+              });
+            }}
+            title={'Edit'}
+            color="#5CC85C"
+          />
+        ),
+      });
+    }
+  }, [navigation, user, author, description, body, title, slug, tagList]);
 
   return (
     <View style={styles.container}>

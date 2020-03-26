@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
-import {StyledLoading, StyledButton} from '../../../components/Styled';
+import {StyledLoading} from '../../../components/Styled';
 import Articles from './articles';
 
 export function User({loading, userInfo}) {

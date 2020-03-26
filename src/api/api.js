@@ -51,7 +51,15 @@ export default class api {
   setArticle(title, description, body, tagList) {
     return this.Post(
       'articles',
-      {article: title, description, body, tagList},
+      {article: {title, description, body, tagList}},
+      'article',
+    );
+  }
+
+  updateArticle(slug, title, description, body) {
+    return this.Put(
+      'articles/' + slug,
+      {article: {title, description, body}},
       'article',
     );
   }

@@ -6,6 +6,7 @@ import User from './screens/User/index';
 import Settings from './screens/User/Settings';
 import Article from './screens/Feeds/Article';
 import Profile from './screens/User/Profile';
+import NewArticle from './screens/NewArticle/index';
 import api from '../api';
 
 const UserStack = createStackNavigator();
@@ -33,6 +34,11 @@ export default function({navigation}) {
         name={'Article'}
         component={Article}
         options={({route}) => ({title: route.params.title})}
+      />
+      <UserStack.Screen
+        name={'Edit Article'}
+        component={NewArticle}
+        options={({route}) => ({title: 'Edit ' + route.params.title})}
       />
       <UserStack.Screen
         name={'Profile'}
