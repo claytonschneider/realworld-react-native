@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
-import {StyledLoading} from '../../../components/Styled';
+import {StyledLoading, StyledButton} from '../../../components/Styled';
 import Articles from './articles';
 
 export function User({loading, userInfo}) {
@@ -19,7 +19,6 @@ export function User({loading, userInfo}) {
           }}
         />
       </View>
-
       <Text style={styles.username}>{userInfo.username}</Text>
       <Text style={styles.bio}>{userInfo.bio}</Text>
       <Articles username={userInfo.username} />

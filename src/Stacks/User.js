@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -6,10 +6,13 @@ import User from './screens/User/index';
 import Settings from './screens/User/Settings';
 import Article from './screens/Feeds/Article';
 import Profile from './screens/User/Profile';
+import api from '../api';
 
 const UserStack = createStackNavigator();
 
 export default function({navigation}) {
+  const [following, setFollowing] = useState();
+
   return (
     <UserStack.Navigator initialRouteName={'User'}>
       <UserStack.Screen
@@ -31,7 +34,34 @@ export default function({navigation}) {
         component={Article}
         options={({route}) => ({title: route.params.title})}
       />
-      <UserStack.Screen name={'Profile'} component={Profile} />
+      <UserStack.Screen
+        name={'Profile'}
+        component={Profile}
+        options={({route}) => ({
+          headerRight: () => (
+            <>
+              {() => setFollowing(route.params.following)}
+              <Button
+                onPress={() => {
+                  if (following) {
+                    setFollowing(false);
+                    api.removeFollow(route.params.username).catch(() => {
+                      setFollowing(true);
+                    });
+                  } else {
+                    setFollowing(true);
+                    api.setFollow(route.params.username).catch(() => {
+                      setFollowing(false);
+                    });
+                  }
+                }}
+                title={following ? 'UnFollow' : 'Follow'}
+                color="#5CC85C"
+              />
+            </>
+          ),
+        })}
+      />
     </UserStack.Navigator>
   );
 }

@@ -56,6 +56,14 @@ export default class api {
     );
   }
 
+  setFollow(username) {
+    return this.Post(`profiles/${username}/follow`, {}, 'profile');
+  }
+
+  removeFollow(username) {
+    return this.Delete(`profiles/${username}/follow`, 'profile');
+  }
+
   signIn(email, password) {
     return this.Post('users/login', {user: email, password}, 'user');
   }
