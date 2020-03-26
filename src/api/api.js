@@ -64,6 +64,10 @@ export default class api {
     );
   }
 
+  removeArticle(slug) {
+    return this.Delete(`articles/${slug}`, null);
+  }
+
   setFollow(username) {
     return this.Post(`profiles/${username}/follow`, {}, 'profile');
   }
@@ -150,17 +154,21 @@ export default class api {
 
   request(endPoint, key, options) {
     return new Promise((resolve, reject) => {
-      console.log(endPoint);
-      if (!key) {
+      console.log(options?.method ? options?.method : 'GET', endPoint);
+      if (key === undefined) {
         key = endPoint;
       }
       fetch(this.apiUrl + endPoint, options)
         .then(res => res.json())
         .then(json => {
-          if (json[key]) {
-            resolve(json[key]);
+          if (key) {
+            if (json[key]) {
+              resolve(json[key]);
+            } else {
+              reject(json);
+            }
           } else {
-            reject(json);
+            resolve();
           }
         })
         .catch(reject);

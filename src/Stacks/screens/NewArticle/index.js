@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, ScrollView} from 'react-native';
+import {StyleSheet, ScrollView, Button} from 'react-native';
 import api from '../../../api';
 import {
   StyledButton,
@@ -81,6 +81,17 @@ export default function NewArticleScreen({navigation, route}) {
         onPress={onPress}
         disabled={!(title && description && body)}
       />
+      {route.params?.editing ? (
+        <Button
+          title="Delete"
+          color="#B85C5C"
+          onPress={() => {
+            api.removeArticle(route.params.slug);
+            navigation.goBack();
+            navigation.goBack();
+          }}
+        />
+      ) : null}
     </ScrollView>
   );
 }
