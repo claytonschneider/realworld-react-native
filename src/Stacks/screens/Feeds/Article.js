@@ -21,7 +21,7 @@ export default function ArticleScreen() {
   const {user} = useContext(StoreContext);
 
   useEffect(() => {
-    if (author.username === user.username) {
+    if (author.username === user?.username) {
       navigation.setOptions({
         headerRight: () => (
           <Button

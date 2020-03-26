@@ -46,7 +46,7 @@ export function Header(props) {
         </View>
       </TouchableOpacity>
       <View style={styles.actions}>
-        {props.follow ? (
+        {props.follow && props.author.username !== user?.username && user ? (
           following ? (
             <Text
               style={[styles.likes, styles.liked]}

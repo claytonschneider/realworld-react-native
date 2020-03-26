@@ -73,11 +73,11 @@ export default class api {
   }
 
   signIn(email, password) {
-    return this.Post('users/login', {user: email, password}, 'user');
+    return this.Post('users/login', {user: {email, password}}, 'user');
   }
 
   signUp(email, password, username) {
-    return this.Post('users', {user: email, password, username}, 'user');
+    return this.Post('users', {user: {email, password, username}}, 'user');
   }
 
   //end of public methods
