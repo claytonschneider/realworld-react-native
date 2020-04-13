@@ -1,7 +1,6 @@
 import React, {useEffect, useState, useContext} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-import {StoreContext} from './context';
-import StoreProvider from './context';
+import StoreProvider, {StoreContext} from './context';
 import Navigator from './Navigation';
 import {StyledLoading} from './components/StyledLoading';
 import api from './api';
