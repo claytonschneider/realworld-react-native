@@ -35,3 +35,53 @@ start
 - android
   - `yarn android`
 
+
+
+## screenshots
+
+<table>
+<tr>
+<td>
+
+![Your Feed](screenshots/yourFeed.png)
+
+</td>
+<td>
+
+![Global Feed](screenshots/globalFeed.png)
+
+</td>
+<td>
+
+![New Article](screenshots/newArticle.png)
+
+</td>
+<td>
+
+![User](screenshots/user.png)
+
+</td>
+</tr>
+<tr>
+<td>
+
+![Post](screenshots/post.png)
+
+</td>
+<td>
+
+![Profile](screenshots/profile.png)
+
+</td>
+<td>
+
+![Settings](screenshots/settings.png)
+
+</td>
+<td>
+
+![Favorited Articles](screenshots/favoritedArticles.png)
+
+</td>
+</tr>
+</table>
